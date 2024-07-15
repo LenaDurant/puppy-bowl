@@ -1,0 +1,18 @@
+h1 {
+    color: goldenrod;
+    text-align: center;
+}
+
+nav {
+    text-align: right;
+    
+}
+a {
+    color: white;
+}
+a:hover{
+    background-color: goldenrod;
+}
+p {
+color: goldenrod;
+}
