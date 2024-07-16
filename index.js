@@ -1,42 +1,59 @@
-// grab the form
+const state = {
+  puppyData: []
+};
+
+const baseUrl = `https://fsa-puppy-bowl.herokuapp.com/api/2406-ftb-et-web-ft/players`;
+
 const form = document.querySelector(`form`);
 
-//when the form is submitted we need an event listener
-form.addEventListener (`submit`,  async (event) => {
-    event.preventDefault();
+form.addEventListener(`submit`, async (event) => {
+  event.preventDefault(); 
+  const input = document.querySelector(`input`);
+  const puppyName = input.value;
+  await getPuppyData(puppyName);
+});
 
-    //grab the input
- const input = document.querySelector(`input`);
+const getPuppyData = async (puppyName) => {
+  const response = await fetch(`https://fsa-puppy-bowl.herokuapp.com/api/2406-ftb-et-web-ft/players`); 
+  const responseJson = await response.json();
+  const puppyAPIData = responseJson.data.players;
+  state.puppyData = puppyAPIData;
+  renderPuppyData(); // 
+};
 
- //get the value from the input
- const puppyName = input.value;
+const renderPuppyData = () => {
+  const main = document.querySelector(`main`);
+  main.innerHTML = ''; //
+  const ol = document.createElement(`ol`);
+  
+  state.puppyData.forEach((puppy) => {
+    const newLI = document.createElement(`li`);
+    newLI.innerText = puppy.name;
+    newLI.addEventListener(`click`, () => {
+      renderPuppyDetail(puppy);
+    });
 
- //call the api with value "https://fsa-puppy-bowl.herokuapp.com/api/2406-ftb-et-web-ft/players"
- const response = await fetch(`https://fsa-puppy-bowl.herokuapp.com/api/2406-ftb-et-web-ft/players`);
- const puppyData = await response.json();
- console.log(puppyData);
+    ol.append(newLI);
+  });
 
- //create a new list item
- const puppyLI = document.createElement(`li`);
+  main.append(ol);
+};
 
- //put party info in the list item
-puppyLI.innterhtml = `
- <h4>${puppyData.name}</h4
+const renderPuppyDetail = (puppy) => {
+  const main = document.querySelector(`main`);
+  main.innerHTML = `
+    <h1>${puppy.name}</h1>
+    <h3>Breed: ${puppy.breed}</h3>
+    <h3>Status: ${puppy.status}</h3>
+    <h3>Doggy id: ${puppy.id}</h3>
+    <h3>Created at: ${puppy.createdAt}</h3>
+    <h3>Updated at: ${puppy.updatedAt}</h3>
+    <h3>Team id: ${puppy.teamId}</h3>
+    <h3>Cohort id: ${puppy.cohortId}</h3>
+    <img src="${puppy.imageUrl}" />
+    <button id="backButton">Return to Homepage</button>
+  `;
 
-`
-//grab the ul
-const ol = document.querySelector(`ol`);
-console.log(ol);
+  document.getElementById('backButton').addEventListener('click', renderPuppyData);
+};
 
-})
-
-
-
-
-
-
-
-
-
-
-//attach the list to the ol
