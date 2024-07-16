@@ -42,7 +42,7 @@ const renderPuppyData = () => {
 const renderPuppyDetail = (puppy) => {
   const main = document.querySelector(`main`);
   main.innerHTML = `
-    <h1>${puppy.name}</h1>
+    <h2>${puppy.name}</h2>
     <h3>Breed: ${puppy.breed}</h3>
     <h3>Status: ${puppy.status}</h3>
     <h3>Doggy id: ${puppy.id}</h3>
