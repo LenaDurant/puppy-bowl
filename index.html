@@ -2,7 +2,6 @@
     <head>
         <title>Puppy Bowl</title>
         <link rel="stylesheet" href="./index.css">
-        <link href="index-description.html">
         <script src="./index.js" defer></script>
     </head>
 
@@ -11,12 +10,20 @@
         <h1>Let's get ready to Puppy Bowl!</h1>
         <form>
           <label>Enter Puppy Player Name</label>
-          <input/>
-          <a href="./index-description.html"></a><button>Submit</button>
+          <input id="playerName" type="text" />
+          <label>Puppy Player Status</label>
+          <select id="status">
+            <option value="field">Field</option>
+            <option value="bench">Bench</option>
+          </select>
+          <label>Puppy Player Breed</label>
+          <input id="breed" type="text" />
+          <label>Puppy Player Image</label>
+          <input id="imageUrl" type="text" />
+          <button onclick="submitPlayer();">Submit</button>
         </form>
 
         <main>
-         <h2>Puppy Roster</h2>
          <ol></ol>
         </main>
     </body>
